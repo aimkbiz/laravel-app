@@ -36,5 +36,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/userTodo', 'App\Http\Controllers\UserTodoController@index');
+Route::post('/userTodo', 'App\Http\Controllers\UserTodoController@create');
+Route::put('/userTodo', 'App\Http\Controllers\UserTodoController@update');
+Route::delete('/userTodo', 'App\Http\Controllers\UserTodoController@delete');
+//Route::get('/userTodo', [UserTodoController::class, 'index']);
 
 require __DIR__.'/auth.php';

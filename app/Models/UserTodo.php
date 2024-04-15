@@ -13,4 +13,9 @@ class UserTodo extends Model
      * @var string
      */
     protected $table = 'users_todo';
+
+    /**
+     * create()やupdate()で入力させない ブラックリスト
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 }
