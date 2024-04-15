@@ -35,4 +35,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/userTodo', 'App\Http\Controllers\UserTodoController@index');
+
 require __DIR__.'/auth.php';
