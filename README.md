@@ -1,4 +1,4 @@
-# 技術スタック/Usage environment
+# 使用技術/Usage environment
 php 8.3.6 <br />
 laravel Framework 9.52.16<br />
 composer 1.10.1 <br /><br />
