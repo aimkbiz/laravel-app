@@ -4,10 +4,12 @@ laravel Framework 9.52.16<br />
 composer 1.10.1 <br /><br />
 
 # 環境構築/environment building
+
+```shell
 git clone git@github.com:aimkbiz/laravel-app.git
 cd laravel-app(インストールした場所)
 composer install
-
+```
 
 # 概要/summary
 【タイトル】寿命までやりたいことリスト100<br />
