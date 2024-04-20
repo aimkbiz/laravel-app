@@ -29,4 +29,7 @@ Route::post('/userTodo', 'App\Http\Controllers\UserTodoController@create');
 Route::put('/userTodo', 'App\Http\Controllers\UserTodoController@update');
 Route::delete('/userTodo', 'App\Http\Controllers\UserTodoController@delete');
 
+Route::get('/aiChat', 'App\Http\Controllers\MasterController@index');
+Route::get('/apiAiChat', 'App\Http\Controllers\MasterController@apiAiChat');
+
 require __DIR__.'/auth.php';

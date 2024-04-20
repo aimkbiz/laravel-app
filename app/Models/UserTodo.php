@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserTodo extends Model
 {
     /**
-     * モデルに関連付けるテーブル
+     * テーブル名
      *
      * @var string
      */
