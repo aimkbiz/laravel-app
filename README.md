@@ -32,6 +32,7 @@ php artisan sail:install
 ・ルーティング<br />
 ・Blade Templates<br />
 ・ログイン認証<br />
+・seeder<br />
 
 【今後やること】<br />
 ・Facades<br />
