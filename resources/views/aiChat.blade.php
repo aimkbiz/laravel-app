@@ -23,23 +23,8 @@
                         @foreach ($aiChats as $todo)
                             <tr>
                                 <form action="/userTodo" method="post">  
-                                @method('PUT')  
-                                {{ csrf_field() }}  
                                 <td>
-                                    <input id="todo" name="todo" type="text" size="100" value="{{ $todo->chat }}" /><br /><br /> 
-                                    <input type="hidden" name="id" value="{{ $todo->id }}"/>  
-                                </td>
-                                <td>
-                                    <input type="submit" value="更新"/>  
-                                </td>
-                                </form>
-                                <td>
-                                    <form action="/userTodo" method="post">  
-                                        @method('DELETE')  
-                                        {{ csrf_field() }}  
-                                        <input type="hidden" name="id" value="{{ $todo->id }}"/>  
-                                        <input type="submit" value="削除"/>  
-                                    </form>
+                                    {{ $todo->chat }}
                                 </td>
                             </tr>
                         @endforeach
