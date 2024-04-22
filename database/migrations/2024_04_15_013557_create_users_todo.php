@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('users_todo', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->text('todo');
             $table->integer('status');
             $table->timestamp('update_at')->useCurrent();
