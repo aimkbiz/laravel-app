@@ -26,15 +26,22 @@ cd laravel-app
 ### .env.exampleを.envにリネーム
 DBの接続先を変更する
 
-###  sailのエイリアスを設定
-```
-alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
-```
+
 
 ###  updateしてsailをインサート
 ```
 composer update
 php artisan sail:install
+```
+
+### packageインストール
+```
+sail npm install
+```
+
+###  sailのエイリアスを設定
+```
+alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
 ```
 
 ###  バックグラウンドで実行
@@ -56,7 +63,13 @@ sail artisan migrate --seed
 ```
 sail npm run dev
 ```
-screen機能を使ってバックグラウンドで実行してもよいかも
+screen機能を使ってバックグラウンドで実行する場合
+```
+screen -S react
+cd /home/xxxx/github/laravel-app # インストールしている場所に移動
+alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
+sail npm run dev
+```
 
 # 概要/summary
 【タイトル】寿命までやりたいことリスト100<br />
