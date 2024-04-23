@@ -13,14 +13,6 @@ class MasterController extends Controller
     }
 
     public function apiAiChat() {
-        $aiChats = MasterAiChat::allCache();
-
-        return response()->json(
-            [
-                ["aiChats" => $aiChats,]
-            ],
-             200,[],
-             JSON_UNESCAPED_UNICODE
-        );
+        return TodoResource::collection(MasterAiChat::allCache());
     }
 }

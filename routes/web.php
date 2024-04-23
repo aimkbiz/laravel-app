@@ -1,15 +1,25 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\GoogleLoginController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+/*
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});*/
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -18,12 +28,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/auth/google', [GoogleLoginController::class, 'redirectToGoogle'])
-    ->name('login.google');
-
-Route::get('/auth/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])
-    ->name('login.google.callback');
-
 Route::get('/userTodo', 'App\Http\Controllers\UserTodoController@index');
 Route::post('/userTodo', 'App\Http\Controllers\UserTodoController@create');
 Route::put('/userTodo', 'App\Http\Controllers\UserTodoController@update');
@@ -31,5 +35,6 @@ Route::delete('/userTodo', 'App\Http\Controllers\UserTodoController@delete');
 
 Route::get('/aiChat', 'App\Http\Controllers\MasterController@index');
 Route::get('/apiAiChat', 'App\Http\Controllers\MasterController@apiAiChat');
+
 
 require __DIR__.'/auth.php';

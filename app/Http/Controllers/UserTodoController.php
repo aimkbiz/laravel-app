@@ -10,6 +10,9 @@ class UserTodoController extends Controller
 {
     public function index() {
         $todos = UserTodo::where('user_id', 1)->get();
+        if ($todos->count() == 0) {
+            return view('userTodo');
+        }
         return view('userTodo', ['todos' => $todos]);
     }
 
