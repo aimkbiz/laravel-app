@@ -38,3 +38,4 @@ Route::get('/apiAiChat', 'App\Http\Controllers\MasterController@apiAiChat');
 
 
 require __DIR__.'/auth.php';
+require __DIR__.'/api.php';
