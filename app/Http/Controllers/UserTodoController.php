@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\UserTodo;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class UserTodoController extends Controller
 {
     public function index() {
         $todos = UserTodo::where('user_id', 1)->get();
-        if ($todos->count() == 0) {
-            return view('userTodo');
-        }
-        return view('userTodo', ['todos' => $todos]);
+        return Inertia::render('userTodo', ['todos' => $todos, 'sss' => 'aaaaa']);
+        //return view('userTodo', ['todos' => $todos]);
     }
 
     public function create(Request $request) {

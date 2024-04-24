@@ -14,11 +14,22 @@ use Inertia\Response;
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * ログイン
      */
     public function create(): Response
     {
         return Inertia::render('Auth/Login', [
+            'canResetPassword' => Route::has('password.request'),
+            'status' => session('status'),
+        ]);
+    }
+
+    /**
+     * テストログイン
+     */
+    public function createTest(): Response
+    {
+        return Inertia::render('Auth/TestLogin', [
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
         ]);
