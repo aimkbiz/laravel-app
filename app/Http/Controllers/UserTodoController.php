@@ -9,10 +9,15 @@ use Inertia\Inertia;
 
 class UserTodoController extends Controller
 {
+
+    /**
+     * ユーザー情報を取得する
+     *
+     * @return App\Models\UserTodo $todos
+     */
     public function index() {
-        $todos = UserTodo::where('user_id', 1)->get();
-        return Inertia::render('userTodo', ['todos' => $todos, 'sss' => 'aaaaa']);
-        //return view('userTodo', ['todos' => $todos]);
+        $todos = UserTodo::where('user_id', Auth::user()->id)->get();
+        return Inertia::render('userTodo', ['todos' => $todos]);
     }
 
     public function create(Request $request) {
@@ -21,6 +26,9 @@ class UserTodoController extends Controller
             "todo" => $request->todo,
             "status" => "1",  
         ]);
+        //$todos = UserTodo::where('user_id', 1)->get();
+        //return Inertia::render('userTodo', ['todos' => $todos]);
+        //return redirect('/');
         return redirect("userTodo");
     }
 
