@@ -91,18 +91,31 @@ sail npm run dev
 
 # エラー対応
 ### composer update実行時エラー
+```
 Composer is operating significantly slower than normal because you do not have the PHP curl extension enabled.
 Loading composer repositories with package information
+```
+
 下記をインストール
+```
 sudo apt install php-curl
+```
 
 ### 「npm run dev」実行時のエラー
+```
 Error: ENOSPC: System limit for number of file watchers reached, watch 
 https://virment.com/how-to-fix-system-limit-for-number-of-file-watchers-reached/
+```
 ◆サイズを確認
+```
 cat /proc/sys/fs/inotify/max_user_watches
+```
 ◆サイズを増やす(私の場合は、24288で設定しました)
+```
 sudo sysctl fs.inotify.max_user_watches=524288
 sudo sysctl fs.inotify.max_user_watches=24288
+```
 ◆元に戻す
+```
 sudo sysctl fs.inotify.max_user_watches=8192
+```
