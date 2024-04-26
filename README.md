@@ -39,8 +39,9 @@ php artisan sail:install
 sail npm install
 ```
 
-###  sailのエイリアスを設定
+###  sailのエイリアスをbashrcに追加
 ```
+vi ~/.bashrc
 alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
 ```
 
