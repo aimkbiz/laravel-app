@@ -1,50 +1,83 @@
-import { useEffect } from 'react';
-import Checkbox from '@/Components/Checkbox';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-export default function userTodo({ auth, todos }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        todo: '',
-    });
-    const list = []
-    for (const [i, todo] of todos.entries()) {
-        list.push(<p>{todo.todo}</p>)
-    }
+const REACT_APP_HOST_URL = "http://157.7.196.170";
+
+
+export default function userTodo({ auth }) {
+    const [categoryList, setCategoryList ] = useState([]);
+    
     useEffect(() => {
-        return () => {
-        };
+      axios.get(REACT_APP_HOST_URL + "/getUserTodo").then((response) => {
+        setCategoryList(response.data);
+      });
+      async function fetchData() {
+          const response = await fetch(REACT_APP_HOST_URL + "/ip")
+          const data = await response.json()
+
+          axios.post(REACT_APP_HOST_URL + '/saveUserAccess', { ip: data.ip }, {
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          }).then((response) => {
+              console.log('success');
+          });
+      }
+      //fetchData()
     }, []);
 
-    const submit = (e) => {
-        e.preventDefault();
-        post(route('userTodo.create'));
+    const saveUserTodo = () => {
+        axios.post(REACT_APP_HOST_URL + '/getUserTodo', { todo: document.getElementById('todo').value }).then((response) => {
+            console.log(response);
+        }).catch((error) => console.log(error));
+    };
+
+    const updateUserTodo = (idVal) => {
+        axios.post(REACT_APP_HOST_URL + '/updateUserTodo', { id: idVal, todo: document.getElementById('todo' + idVal).value }).then((response) => {
+            console.log(response);
+        }).catch((error) => console.log(error));
+    };
+
+    const deleteUserTodo = (idVal) => {
+        axios.post(REACT_APP_HOST_URL + '/deleteUserTodo', { id: idVal }).then((response) => {
+            console.log(response);
+        }).catch((error) => console.log(error));
     };
 
     return (
-        <GuestLayout>
-            <Head title="やりたいことリスト" />
-            {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="todo" value="やりたいこと" />
-                    <TextInput id="todo" type="text" name="todo" value={data.todo} className="mt-1 block w-full"
-                        onChange={(e) => setData('todo', e.target.value)}
-                    />
-
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
-                <div className="flex items-center justify-end mt-4">
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        登録
-                    </PrimaryButton>
-                </div>
-                { list }
-            </form>
-        </GuestLayout>
-    );
+        <AuthenticatedLayout
+        user={auth.user}
+        header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
+        >
+        <div>
+         <center>
+         <form onSubmit={saveUserTodo}>
+            <p>
+                <input type="text" name="todo" id="todo" />
+                <PrimaryButton className="ms-4" >登録</PrimaryButton>
+            </p><br /><br />
+         </form>
+           {categoryList.map((val, index) => {
+             return <p key={index}>
+                <table>
+                    <tr>
+                        <td>
+                            <form onSubmit={() => updateUserTodo(val.id)}>
+                                {val.todo}<input type="text" name="todo" id={"todo" + val.id} />
+                                <PrimaryButton className="ms-4" >変更</PrimaryButton>
+                            </form>
+                        </td>
+                        <td>
+                            <form onSubmit={() => deleteUserTodo(val.id)}>
+                                <PrimaryButton className="ms-4" >削除</PrimaryButton>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+                </p>
+           })}
+         </center>
+       </div>
+       </AuthenticatedLayout>
+    )
 }

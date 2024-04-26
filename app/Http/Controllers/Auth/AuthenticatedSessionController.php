@@ -29,7 +29,9 @@ class AuthenticatedSessionController extends Controller
      */
     public function createTest(): Response
     {
-        return Inertia::render('Auth/TestLogin', [
+        return Inertia::render('Auth/Login', [
+            'testLoginMail' => env('TEST_LOGIN_MAIL'),
+            'testLoginPw' => env('TEST_LOGIN_PW'),
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
         ]);

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\UserTodo;
 use Illuminate\Support\Facades\Auth;
-use Inertia\Inertia;
 
 /**
  * ユーザーTODOコントローラ－
@@ -17,40 +17,50 @@ class UserTodoController extends Controller
      *
      * @return App\Models\UserTodo $todos
      */
-    public function index() {
+    public function index()
+    {
         $todos = UserTodo::where('user_id', Auth::user()->id)->get();
-        //return Inertia::render('userTodo', ['todos' => $todos]);
         return response()->json($todos, 200);
     }
 
-    public function create(Request $request) {
-        error_log($request->todo);
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function create(Request $request)
+    {
         UserTodo::create([  
             "user_id" => Auth::user()->id,
             "todo" => $request->todo,
             "status" => "1",  
         ]);
-        //$todos = UserTodo::where('user_id', 1)->get();
-        //return Inertia::render('userTodo', ['todos' => $todos]);
-        //return redirect('/');
         return redirect("userTodo");
     }
 
-    public function update(Request $request) {
-        error_log($request->id + $request->todo);
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
         $userTodo = UserTodo::find($request->id);
         $userTodo->update([  
             "todo" => $request->todo, 
         ]);
-        return redirect("userTodo");
     }
 
-    public function delete(Request $request) {
-        error_log($request->id);
-        //error_log($request);
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function delete(Request $request)
+    {
         $userTodo = UserTodo::find($request->id);
-        //$userTodo = UserTodo::find('19');
         $userTodo->delete();
-        return redirect("userTodo");
     }
 }
