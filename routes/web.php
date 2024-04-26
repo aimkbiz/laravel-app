@@ -7,6 +7,7 @@ use App\Http\Controllers\UserTodoController;
 use Inertia\Inertia;
 
 Route::get('/', 'App\Http\Controllers\MasterController@index');
+Route::get('/ip', [CommonController::class, 'ip']);
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -17,11 +18,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/userTodo', function () {
+    return Inertia::render('userTodo');
+});
+
+//Route::apiResource('/getUserTodo', [UserTodoController::class, 'index'])->name('userTodo.index');
+//Route::apiResource('/getUserTodo', UserTodoController::class);
 //Route::middleware('todo')->group(function () {
-    Route::get('/userTodo', [UserTodoController::class, 'index'])->name('userTodo.index');
-    Route::post('/userTodo', [UserTodoController::class, 'create'])->name('userTodo.create');
-    Route::put('/userTodo', [UserTodoController::class, 'update'])->name('userTodo.update');
-    Route::delete('/userTodo', [UserTodoController::class, 'delete'])->name('userTodo.delete');
+    //Route::get('/userTodo', Inertia::render('userTodo'));
+    
+    Route::get('/getUserTodo', [UserTodoController::class, 'index']);
+    Route::post('/getUserTodo', [UserTodoController::class, 'create']);
+    Route::post('/updateUserTodo', [UserTodoController::class, 'update']);
+    Route::post('/deleteUserTodo', [UserTodoController::class, 'delete']);
 //});
 /* 
 Route::get('/userTodo', 'App\Http\Controllers\UserTodoController@index');
