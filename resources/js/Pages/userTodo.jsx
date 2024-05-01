@@ -10,14 +10,14 @@ export default function userTodo({ auth }) {
     const [categoryList, setCategoryList ] = useState([]);
     
     useEffect(() => {
-      axios.get(REACT_APP_HOST_URL + "/getUserTodo").then((response) => {
+      axios.get("/getUserTodo").then((response) => {
         setCategoryList(response.data);
       });
       async function fetchData() {
-          const response = await fetch(REACT_APP_HOST_URL + "/ip")
+          const response = await fetch("/ip")
           const data = await response.json()
 
-          axios.post(REACT_APP_HOST_URL + '/saveUserAccess', { ip: data.ip }, {
+          axios.post('/saveUserAccess', { ip: data.ip }, {
               headers: {'Content-Type': 'application/x-www-form-urlencoded'}
           }).then((response) => {
               console.log('success');
@@ -27,19 +27,19 @@ export default function userTodo({ auth }) {
     }, []);
 
     const saveUserTodo = () => {
-        axios.post(REACT_APP_HOST_URL + '/getUserTodo', { todo: document.getElementById('todo').value }).then((response) => {
+        axios.post('/getUserTodo', { todo: document.getElementById('todo').value }).then((response) => {
             console.log(response);
         }).catch((error) => console.log(error));
     };
 
     const updateUserTodo = (idVal) => {
-        axios.post(REACT_APP_HOST_URL + '/updateUserTodo', { id: idVal, todo: document.getElementById('todo' + idVal).value }).then((response) => {
+        axios.post('/updateUserTodo', { id: idVal, todo: document.getElementById('todo' + idVal).value }).then((response) => {
             console.log(response);
         }).catch((error) => console.log(error));
     };
 
     const deleteUserTodo = (idVal) => {
-        axios.post(REACT_APP_HOST_URL + '/deleteUserTodo', { id: idVal }).then((response) => {
+        axios.post('/deleteUserTodo', { id: idVal }).then((response) => {
             console.log(response);
         }).catch((error) => console.log(error));
     };
