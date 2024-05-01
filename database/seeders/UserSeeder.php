@@ -10,12 +10,15 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        $now = Carbon::now();
-        $param['name'] = 'test';
-        $param['email'] = 'test@test.com';
-        $param['password'] = Hash::make('A8yS03Tgs');
-        $param['created_at'] = $now;
-        $param['updated_at'] = $now;
-        DB::table('users')->insert($param);
+        // ローカルのみ作成
+        if (env('APP_ENV') == 'local') {
+            $now = Carbon::now();
+            $param['name'] = 'test';
+            $param['email'] = env('TEST_LOGIN_MAIL');
+            $param['password'] = Hash::make(env('TEST_LOGIN_PW'));
+            $param['created_at'] = $now;
+            $param['updated_at'] = $now;
+            DB::table('users')->insert($param);
+        }
     }
 }
