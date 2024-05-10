@@ -12,7 +12,6 @@ export default function Dashboard({ auth }) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             <a href="userTodo">TODO</a><br /><br />
-                            <a href="aiChat">ユーザ</a><br />
                         </div>
                     </div>
                 </div>
