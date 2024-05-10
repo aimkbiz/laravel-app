@@ -13,17 +13,6 @@ export default function userTodo({ auth }) {
       axios.get("/getUserTodo").then((response) => {
         setCategoryList(response.data);
       });
-      async function fetchData() {
-          const response = await fetch("/ip")
-          const data = await response.json()
-
-          axios.post('/saveUserAccess', { ip: data.ip }, {
-              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-          }).then((response) => {
-              console.log('success');
-          });
-      }
-      //fetchData()
     }, []);
 
     const saveUserTodo = () => {
@@ -50,32 +39,33 @@ export default function userTodo({ auth }) {
         header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
         >
         <div>
-         <center>
+         <center><br /><br />
          <form onSubmit={saveUserTodo}>
             <p>
                 <input type="text" name="todo" id="todo" />
-                <PrimaryButton className="ms-4" >登録</PrimaryButton>
+                <PrimaryButton className="ms-5 bg-gradient-to-br from-red-300 to-red-800 hover:bg-gradient-to-tl text-white rounded px-4 py-2" >登録</PrimaryButton>
             </p><br /><br />
          </form>
+           <table class="w-fit">
            {categoryList.map((val, index) => {
-             return <p key={index}>
-                <table>
-                    <tr>
-                        <td>
-                            <form onSubmit={() => updateUserTodo(val.id)}>
-                                {val.todo}<input type="text" name="todo" id={"todo" + val.id} />
-                                <PrimaryButton className="ms-4" >変更</PrimaryButton>
-                            </form>
-                        </td>
-                        <td>
-                            <form onSubmit={() => deleteUserTodo(val.id)}>
-                                <PrimaryButton className="ms-4" >削除</PrimaryButton>
-                            </form>
-                        </td>
-                    </tr>
-                </table>
-                </p>
+             return <tr key={index}>
+                    <td className="w-2/5">
+                        {val.todo}
+                    </td>
+                    <td className="w-2/5">
+                    <form onSubmit={() => updateUserTodo(val.id)}>
+                        <input type="text" name="todo" id={"todo" + val.id} />
+                        <PrimaryButton className="ms-4" >変更</PrimaryButton>
+                    </form>
+                    </td>
+                    <td className="w-1/5">
+                        <form onSubmit={() => deleteUserTodo(val.id)}>
+                            <PrimaryButton className="ms-4" >削除</PrimaryButton>
+                        </form>
+                    </td>
+                </tr>
            })}
+           </table>
          </center>
        </div>
        </AuthenticatedLayout>
