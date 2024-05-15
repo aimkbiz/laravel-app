@@ -24,7 +24,7 @@ class UserTodoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * ユーザーTODO情報を作成する
      */
     public function create(Request $request)
     {
@@ -37,15 +37,7 @@ class UserTodoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * ユーザーTODO情報を更新する
      */
     public function update(Request $request)
     {
@@ -56,7 +48,7 @@ class UserTodoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * ユーザーTODO情報を削除する
      */
     public function delete(Request $request)
     {

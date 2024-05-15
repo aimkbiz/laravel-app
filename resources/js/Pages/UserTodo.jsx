@@ -3,10 +3,7 @@ import axios from 'axios';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-const REACT_APP_HOST_URL = "http://157.7.196.170";
-
-
-export default function userTodo({ auth }) {
+export default function UserTodo({ auth }) {
     const [categoryList, setCategoryList ] = useState([]);
     
     useEffect(() => {
