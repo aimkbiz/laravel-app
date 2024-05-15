@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // TODOリスト
-Route::get('/userTodo', function () { return Inertia::render('userTodo');});
+Route::get('/userTodo', function () { return Inertia::render('UserTodo');});
 Route::get('/getUserTodo', [UserTodoController::class, 'index']);
 Route::post('/getUserTodo', [UserTodoController::class, 'create']);
 Route::post('/updateUserTodo', [UserTodoController::class, 'update']);
